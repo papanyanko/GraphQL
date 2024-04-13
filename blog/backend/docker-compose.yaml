@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16.2-bookworm
+    container_name: blog-db
+    volumes:
+      - type: volume
+        source: db-data
+        target: /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=blog-db
+volumes:
+  db-data:
