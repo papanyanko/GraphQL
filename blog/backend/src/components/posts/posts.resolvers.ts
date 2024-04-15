@@ -1,9 +1,10 @@
 import { Query, Resolver } from '@nestjs/graphql';
 import { PostModel } from './posts.module';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Resolver(() => PostModel)
 export class PostsResolver {
-  constructor() {}
+  constructor(private readonly prisma: PrismaService) {}
 
   @Query(() => [PostModel], { name: 'posts', nullable: true })
   async getPosts() {
@@ -17,5 +18,10 @@ export class PostsResolver {
         title: 'GraphQL is so good.',
       },
     ];
+  }
+
+  @Query(() => [PostModel], { name: 'prismaPosts', nullable: true })
+  async getPostsByPrisma() {
+    return this.prisma.post.findMany();
   }
 }
