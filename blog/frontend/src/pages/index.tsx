@@ -1,11 +1,13 @@
 import type { GetServerSideProps } from "next";
 import { urqlClient } from "@/lib/gql-requests";
-import { gql } from "urql";
+import { PostIndexPageDocument } from "@/graphql/generated/graphql";
 
 type Props = {
   posts: {
     id: string;
     title: string;
+    type: string;
+    publishDate: string;
   }[];
 };
 
@@ -17,7 +19,7 @@ export default function Home(props: Props) {
         <ul>
           {props.posts.map((post) => (
             <li key={post.id} className="p-2">
-              id: {post.id} title: {post.title}
+              title: {post.title} type: {post.type}
             </li>
           ))}
         </ul>
@@ -29,15 +31,7 @@ export default function Home(props: Props) {
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   try {
     const client = await urqlClient();
-    const postsQuery = gql`
-      query {
-        posts {
-          id
-          title
-        }
-      }
-    `;
-    const result = await client.query(postsQuery, {}).toPromise();
+    const result = await client.query(PostIndexPageDocument, {}).toPromise();
     return {
       props: {
         posts: result.data.posts,
