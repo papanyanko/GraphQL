@@ -35,7 +35,7 @@ substitutions:
   _SERVICE_ACCOUNT: by-terraform
 availableSecrets:
   secretManager:
-    - versionName: project/$PROJECT_NUMBER/secrets/BLOG_DATABASE_URL/versions/latest
+    - versionName: projects/$PROJECT_NUMBER/secrets/BLOG_DATABASE_URL/versions/latest
       env: DATABASE_URL
 
 images:
