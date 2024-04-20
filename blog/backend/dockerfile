@@ -1,0 +1,14 @@
+FROM node:20.12.2-bookworm-slim
+
+ENV NODE_ENV=development
+
+RUN apt-get -qy update
+RUN apt-get -qy install openssl
+
+WORKDIR /app
+COPY package.json ./
+COPY pnpm-lock.yaml ./
+COPY prisma ./prisma
+RUN pnpm install
+COPY . .
+CMD [ "pnpm", "prisma", "migrate", "deploy" ]

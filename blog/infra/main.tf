@@ -23,3 +23,18 @@ module "artifact-registry" {
   backend_app_name = local.backend_app_name
   frontend_app_name = local.frontend_app_name
 }
+
+module "cloud-sql" {
+  source = "./modules/cloud-sql"
+  target_region = var.primary_region
+}
+
+module "cloud-build" {
+  source = "./modules/cloud-build"
+  gcp_project_id = var.gcp_project_id
+  region = var.primary_region
+  cloudsql_instance_full_name = module.cloud-sql.blog_3213678_db_connection_name
+  backend_app_name = local.backend_app_name
+  github_owner = "papanyanko"
+  github_app_repo_name = "GraphQL"
+}
