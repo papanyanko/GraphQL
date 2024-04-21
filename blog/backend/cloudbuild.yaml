@@ -52,8 +52,8 @@ steps:
       - --revision-suffix=$SHORT_SHA
       - --add-cloudsql-instances=$_CLOUDSQL_INSTANCE_FULL_NAME
       - --region=$_REGION
-      dir: "blog/backend"
-      waitFor: ["apply-migrations"]
+    dir: "blog/backend"
+    waitFor: ["apply-migrations"]
 
 timeout: 2000s
 substitutions: 
