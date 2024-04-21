@@ -9,7 +9,7 @@ steps:
       - .
     dir: "blog/backend"
 
-  - id: push-packend
+  - id: push-backend
     name: "docker"
     args:
       - push
