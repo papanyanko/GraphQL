@@ -30,6 +30,7 @@ steps:
 
   - id: deploy-backend
     name: gcr.io/cloud-builders/gcloud
+    env: [GCP_PROJECT_ID=$PROJECT_ID]
     args:
       - run
       - deploy
@@ -52,7 +53,6 @@ steps:
       - allow-unauthenticated
       - --no-cpu-throttling
       - --ingress=all
-      - --set-env-vars GCP_PROJECT_ID=$PROJECT_ID
       - --update-secrets DATABASE_URL=BLOG_DATABASE_URL:latest
       dir: "blog/backend"
       waitFor: ["apply-migrations"]
