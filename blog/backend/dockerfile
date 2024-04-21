@@ -7,7 +7,7 @@ ENV NODE_ENV=development
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY prisma ./prisma
-RUN pnpm i && pnpx prisma generate
+RUN pnpm i
 COPY . .
 RUN pnpm build
 
@@ -15,7 +15,7 @@ FROM base as runner
 ENV NODE_ENV=production
 COPY package.json ./
 COPY pnpm-lock.yaml ./
-RUN pnpm i
+RUN pnpm i && pnpx prisma generate
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 ENV HOSTNAME="0.0.0.0"
