@@ -23,7 +23,7 @@ steps:
     entrypoint: "bash"
     args: 
       - "-c"
-      - "/buildstep/execute.sh -i $_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA -e DATABASE_URL=$$DATABASE_URL -s $_CLOUDSQL_INSTANCE_FULL_NAME -- pnpm prisma migrate deploy"
+      - "/buildstep/execute.sh -i $_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA -e DATABASE_URL=$$DATABASE_URL -s $_CLOUDSQL_INSTANCE_FULL_NAME -- pnpx prisma migrate deploy"
     secretEnv: ["DATABASE_URL"]
     dir: "blog/backend"
     waitFor: ["push-backend"]
