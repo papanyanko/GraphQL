@@ -19,4 +19,5 @@ RUN pnpm i
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 ENV HOSTNAME="0.0.0.0"
+RUN pnpx prisma generate
 CMD [ "pnpm", "start:prod" ]
