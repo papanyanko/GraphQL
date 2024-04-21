@@ -50,10 +50,9 @@ steps:
       - --max-instances=3
       - --min-instances=0
       - --no-use-http2
-      - allow-unauthenticated
+      - --allow-unauthenticated
       - --no-cpu-throttling
-      - --ingress=all
-      - --update-secrets DATABASE_URL=BLOG_DATABASE_URL:latest
+      - --update-secrets=[DATABASE_URL=BLOG_DATABASE_URL:latest]
       dir: "blog/backend"
       waitFor: ["apply-migrations"]
 
