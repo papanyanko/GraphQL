@@ -5,7 +5,7 @@ variable "gcp_project_id" {
 resource "google_service_account" "blog_app_runner" {
   project = var.gcp_project_id
   account_id = "blog-app-runner"
-  display_name = "Cloud Run Blog App Service Account"
+  display_name = "Cloud Run Blog App Dervice Account"
 }
 
 resource "google_project_iam_member" "blog_app_runner_member" {
@@ -16,7 +16,7 @@ resource "google_project_iam_member" "blog_app_runner_member" {
 
 resource "google_project_iam_member" "cloud_runner_member" {
   project = var.gcp_project_id
-  role = "roles/run.admin"
+  role = "roles/run.invoker"
   member = "serviceAccount:${google_service_account.blog_app_runner.email}"
 }
 
