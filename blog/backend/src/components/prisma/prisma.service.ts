@@ -1,4 +1,5 @@
 import {
+  INestApplication,
   Inject,
   Injectable,
   LoggerService,
@@ -26,6 +27,12 @@ export class PrismaService
 
   async onModuleInit() {
     await this.$connect();
+  }
+
+  async enableShutdownHooks(app: INestApplication) {
+    process.on('beforeExit', async () => {
+      await app.close();
+    });
   }
 
   async enableLogger(logger: LoggerService) {
