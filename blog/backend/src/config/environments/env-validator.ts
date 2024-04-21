@@ -13,12 +13,10 @@ export class EnvValidator {
 }
 
 export function validate(config: Record<string, unknown>) {
-  console.log(config);
 
   const validatedConfig = plainToClass(EnvValidator, config, {
     enableImplicitConversion: true,
   });
-  console.log(validatedConfig);
 
   const errors = validateSync(validatedConfig, {
     skipMissingProperties: false,
