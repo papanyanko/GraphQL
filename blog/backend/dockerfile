@@ -15,7 +15,7 @@ FROM base as runner
 ENV NODE_ENV=production
 COPY package.json ./
 COPY pnpm-lock.yaml ./
-RUN pnpm i && pnpx prisma generate
+RUN pnpm i
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 ENV HOSTNAME="0.0.0.0"
