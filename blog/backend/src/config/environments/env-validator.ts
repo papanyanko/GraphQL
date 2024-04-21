@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, validateSync } from 'class-validator';
+import { IsEnum, validateSync } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 
 enum NodeEnvEnum {
@@ -10,9 +10,6 @@ enum NodeEnvEnum {
 export class EnvValidator {
   @IsEnum(NodeEnvEnum)
   NODE_ENV: NodeEnvEnum;
-
-  @IsNotEmpty()
-  DATABASE_URL: string;
 }
 
 export function validate(config: Record<string, unknown>) {
