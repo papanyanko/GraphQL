@@ -35,24 +35,23 @@ steps:
       - run
       - deploy
       - blog-backend
-      - --quiet
-      - --platform=managed
       - --project=$PROJECT_ID
-      - --region=$_REGION
-      - --image=$_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA
-      - --service-account=$_SERVICE_ACCOUNT
-      - --add-cloudsql-instances=$_CLOUDSQL_INSTANCE_FULL_NAME
-      - --revision-suffix=$SHORT_SHA
-      - --tag=latest
+      - --quiet
       - --concurrency=40
-      - --cpu=1
-      - --memory=512Mi
       - --max-instances=3
       - --min-instances=0
+      - --service-account=$_SERVICE_ACCOUNT
+      - --tag=latest
+      - --cpu=1
+      - --memory=512Mi
       - --no-use-http2
+      - --update-secrets=[DATABASE_URL=BLOG_DATABASE_URL:latest]
+      - --image=$_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA
       - --allow-unauthenticated
       - --no-cpu-throttling
-      - --update-secrets=[DATABASE_URL=BLOG_DATABASE_URL:latest]
+      - --revision-suffix=$SHORT_SHA
+      - --add-cloudsql-instances=$_CLOUDSQL_INSTANCE_FULL_NAME
+      - --region=$_REGION
       dir: "blog/backend"
       waitFor: ["apply-migrations"]
 
