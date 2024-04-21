@@ -30,7 +30,6 @@ steps:
 
   - id: deploy-backend
     name: gcr.io/cloud-builders/gcloud
-    env: [GCP_PROJECT_ID=$PROJECT_ID]
     args:
       - run
       - deploy
@@ -45,6 +44,8 @@ steps:
       - --cpu=1
       - --memory=512Mi
       - --no-use-http2
+      - --update-env-vars PORT=3333
+      - --update-secrets DATABASE_URL=DATABASE_URL:latest
       - --image=$_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA
       - --allow-unauthenticated
       - --no-cpu-throttling
