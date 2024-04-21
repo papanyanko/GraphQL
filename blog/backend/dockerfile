@@ -4,6 +4,7 @@ WORKDIR /app
 
 FROM base AS builder
 ENV NODE_ENV=development
+RUN apt-get -qy update && apt-get -qy install openssl
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY prisma ./prisma
@@ -13,7 +14,6 @@ RUN pnpm build
 
 FROM base as runner
 ENV NODE_ENV=production
-RUN apt-get -qy update && apt-get -qy install openssl
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 RUN pnpm i
