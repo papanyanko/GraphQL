@@ -17,9 +17,6 @@ export class EnvValidator {
   @IsEnum(NodeEnvEnum)
   NODE_ENV: NodeEnvEnum;
 
-  @IsNumber()
-  PORT = 3333;
-
   @IsNotEmpty()
   @IsString()
   DATABASE_URL: string;
@@ -35,8 +32,6 @@ export function validate(config: Record<string, unknown>) {
   });
 
   if (errors.length > 0) {
-    console.log(config);
-    console.log(validatedConfig);
     throw new Error(errors.toString());
   }
   return validatedConfig;
