@@ -28,7 +28,7 @@ export class BlogEnv {
       autoSchemaFile: true,
     };
 
-    if (this.isProduction) {
+    if (this.isProduction()) {
       return prdOptions;
     } else {
       return devOptions;
