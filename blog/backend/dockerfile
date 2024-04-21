@@ -7,7 +7,7 @@ ENV NODE_ENV=development
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY prisma ./prisma
-RUN pnpm i && prisma generate
+RUN pnpm i && pnpx prisma generate
 COPY . .
 RUN pnpm build
 
