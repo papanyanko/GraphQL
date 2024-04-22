@@ -8,7 +8,7 @@ steps:
     secretEnv: ["GRAPHQL_ENDPOINT"]
     dir: "blog/frontend"
   
-  - id: push-frotnend
+  - id: push-frontend
     name: "docker"
     args:
       - push
