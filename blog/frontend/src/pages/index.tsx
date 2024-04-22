@@ -1,14 +1,8 @@
-import type { GetServerSideProps } from "next";
 import { urqlClient } from "@/lib/gql-requests";
-import { PostIndexPageDocument } from "@/graphql/generated/graphql";
+import { PostIndexPageDocument, PostModel } from "@/graphql/generated/graphql";
 
 type Props = {
-  posts: {
-    id: string;
-    title: string;
-    type: string;
-    publishDate: string;
-  }[];
+  posts: Partial<PostModel>[];
 };
 
 export default function Home(props: Props) {
@@ -28,7 +22,7 @@ export default function Home(props: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export async function getServerSideProps() {
   try {
     const client = await urqlClient();
     const result = await client.query(PostIndexPageDocument, {}).toPromise();
@@ -43,4 +37,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
       notFound: true,
     };
   }
-};
+}
