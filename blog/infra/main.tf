@@ -36,6 +36,7 @@ module "cloud-build" {
   cloud_run_service_account = module.cloud-run.blog_app_runner_service_account
   cloudsql_instance_full_name = module.cloud-sql.blog_3213678_db_connection_name
   backend_app_name = local.backend_app_name
+  frontend_app_name = local.frontend_app_name
   github_owner = "papanyanko"
   github_app_repo_name = "GraphQL"
 }
