@@ -18,7 +18,7 @@ steps:
     waitFor: ["build-frontend"]
 
   - id: deploy-frontend
-    name: gcr.io/icloud-builders/gcloud
+    name: gcr.io/cloud-builders/gcloud
     args:
       - run
       - deploy
