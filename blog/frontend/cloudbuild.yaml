@@ -48,7 +48,7 @@ substitutions:
   _SERVICE_ACCOUNT: by-terraform
 availableSecrets:
   secretManager:
-    - versionName: projects/$PROJECT_NUMBER/secrets/BLOG_GRAPHQL_ENDPOINT/versions/latest
+    - versionName: projects/$PROJECT_NUMBER/secrets/BLOG_GRAPHQL_ENDPOINT/versions/T9075904
       env: GRAPHQL_ENDPOINT
 
 images:
