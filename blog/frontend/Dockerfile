@@ -2,7 +2,7 @@ FROM node:20.12.2-bookworm-slim AS base
 WORKDIR /app
 
 FROM base AS builder
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 RUN npm i -g pnpm
 ARG graphql_endpoint
 ENV NEXT_PUBLIC_GRAPHQL_ENDPOINT=${graphql_endpoint}
