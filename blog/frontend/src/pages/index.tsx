@@ -28,7 +28,7 @@ export async function getServerSideProps() {
     const result = await client.query(PostIndexPageDocument, {}).toPromise();
     return {
       props: {
-        posts: result.data.posts,
+        posts: result.data?.posts,
       },
     };
   } catch (e) {
