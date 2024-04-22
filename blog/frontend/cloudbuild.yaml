@@ -1,0 +1,55 @@
+steps:
+  - id: build-frontend
+    name: "docker"
+    entrypoint: "bash"
+    args:
+      - -c
+      - "docker build --file=Dockerfile --build-arg=graphql_endpoint=$$GRAPHQL_ENDPOINT --tag=$_ARTIFACT_REPOSITORY_IMAGE_NAME:_SHORT_SHA --cache-from=$_ARTIFACT_REPOSITORY_IMAGE_NAME:latest"
+    secretEnv: ["GRAPHQL_ENDPOINT"]
+    dir: ["blog/frontend"]
+  
+  - id: push-frotnend
+    name: "docker"
+    args:
+      - push
+      - --all-tags
+      - $_ARTIFACT_REPOSITORY_IMAGE_NAME
+    dir: "blog/frontend"
+    waitFor: ["build-frontend"]
+
+  - id: deploy-frontend
+    name: gcr.io/icloud-builders/gcloud
+    args:
+      - run
+      - deploy
+      - blog-frontend
+      - --project=$PROJECT_ID
+      - --quiet
+      - --concurrency=40
+      - --max-instances=3
+      - --min-instances=0
+      - --service-account=$_SERVICE_ACCOUNT
+      - --tag=latest
+      - --cpu=1
+      - --memory=512Mi
+      - --no-use-http2
+      - --image=$_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA
+      - --allow-unauthenticated
+      - --no-cpu-throttling
+      - --revision-suffix=$SHORT_SHA
+      - --region=$_REGION
+    dir: "blog/frontend"
+    waitFor: ["push-frontend"]
+
+timeout: 2000s
+substitutions: 
+  _REGION: by-terraform
+  _ARTIFACT_REPOSITORY_IMAGE_NAME: by-terraform
+  _SERVICE_ACCOUNT: by-terraform
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_NUMBER/secrets/BLOG_GRAPHQL_ENDPOINT/versions/latest
+      env: GRAPHQL_ENDPOINT
+
+images:
+  - $_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA
