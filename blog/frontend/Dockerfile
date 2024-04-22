@@ -14,7 +14,7 @@ RUN pnpm build
 
 FROM base AS runner
 ENV NODE_ENV=production
-COPY --from=builder next.config.mjs ./
+COPY --from=builder /next.config.mjs ./
 COPY --from=builder /public ./public
 COPY --from=builder /.next/static ./.next/static
 COPY --from=builder /.next/standtalone ./
